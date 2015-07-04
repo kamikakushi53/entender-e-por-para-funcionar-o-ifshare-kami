@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>Arquivos disponiveis para download</title>
+	<meta http-equiv="content-type" 
+		content="text/html;charset=iso-8859-1" />
+</head>
+
+<body>
+     <p>Selecione o arquivo para o qual deseja gerar o .IFSHARE</p>
+     <table border="1">
+     <tr><th>Arquivo</th><th>Tamanho</th><th>Data</th></tr>
+{% for i in rows: %}
+     <tr><td><a href="/Get/{{ i[0] }}">{{ i[1] }}</a> <a href="/CheckHealth/{{ i[0] }}">?</a></td><td>{{ bestSizeTemplate(i[2]) }}</td><td>{{ i[3] }}</td></tr>
+{% endfor %}
+     </table>
+</body>
+</html>
