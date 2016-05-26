@@ -127,6 +127,8 @@ for arquivo in range(0, numArquivos):
     widgets = ["Baixando o arquivo ", Percentage(), " ", Bar(marker='#', left='[', right=']'), " ", ETA(), " ", FileTransferSpeed()]
 
     chaveEntrada = bucket.get_key(ifshare_propriedades['arquivo'])
+    print(chaveEntrada)
+    print(ifshare_propriedades['arquivo'])
     nomeArquivoEntrada = ifshare_propriedades['hashgeral'] + ".incoming"
 
     pbar = ProgressBar(widgets=widgets, maxval=chaveEntrada.size, term_width=80)

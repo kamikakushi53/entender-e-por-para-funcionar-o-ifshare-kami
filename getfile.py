@@ -49,6 +49,7 @@ fd.close()
 bitMap = bitstring.BitArray(ifshare_propriedades['numchunks'])
 
 filename = drive + caminho + ifshare_propriedades['arquivo']
+print(filename)
 try:
     fd_output = open(filename, 'r+b')
 except IOError:
@@ -79,7 +80,7 @@ for i in range(ifshare_propriedades['numchunks']):
     pbar.update(i)
 
 pbar.finish()
-server = "http://tracker.lab-rsd.com:8008"
+server = "http://localhost:8008"
 service = "URLbyChunk"
 args = "n=2&t=360"
 

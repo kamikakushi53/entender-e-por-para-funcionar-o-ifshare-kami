@@ -1,8 +1,6 @@
-import sys
-
 __author__ = 'dclobato'
 import datetime
-
+import sys
 import boto
 import time
 import boto.sqs
@@ -50,14 +48,14 @@ def dumpMetadata(prop_dict):
 
 
 def readMetadata(fd, prop_dict):
-    prop_dict['arquivo'] = fd.readline().rstrip('\n')
+    prop_dict['arquivo'] = fd.readline().rstrip()
     prop_dict['tamanho'] = int(fd.readline())
-    prop_dict['criacao_do_arquivo'] = datetime.datetime.strptime(fd.readline().rstrip('\n'), "%Y%m%d%H%M%S")
-    prop_dict['hashgeral'] = fd.readline().rstrip('\n')
+    prop_dict['criacao_do_arquivo'] = datetime.datetime.strptime(fd.readline().rstrip(), "%Y%m%d%H%M%S")
+    prop_dict['hashgeral'] = fd.readline().rstrip()
     prop_dict['chunksize'] = int(fd.readline())
     prop_dict['numchunks'] = int(fd.readline())
     for chunk in range(0, prop_dict['numchunks']):
-        prop_dict['hashchunk' + str(chunk)] = fd.readline().rstrip('\n')
+        prop_dict['hashchunk' + str(chunk)] = fd.readline().rstrip()
 
     return
 

@@ -257,7 +257,7 @@ print("-" * 80)
 print("Atendendo pedidos")
 print("-" * 80)
 
-app.run(host="0.0.0.0", port=8008, use_reloader=True)
+app.run(host="0.0.0.0", port=8008, use_reloader=False)
 
 print("")
 print("-" * 80)
