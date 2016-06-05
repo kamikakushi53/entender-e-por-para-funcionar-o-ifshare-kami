@@ -1,6 +1,8 @@
+import sys
+
 __author__ = 'dclobato'
 import datetime
-import sys
+
 import boto
 import time
 import boto.sqs
@@ -8,7 +10,7 @@ import boto.sqs.message
 from boto.s3.connection import OrdinaryCallingFormat
 from boto.exception import S3ResponseError, S3CreateError
 from boto.s3.key import Key
-
+import mysql.connector
 
 def bestSize(tamanho):
     if tamanho < 1024:
@@ -118,7 +120,7 @@ def createAndGetObjectStoreBucket(objectStoreDict, objectStoreConnection, debug=
                 print(
                     "[DEBUG: createAndGetObjectStoreBucket]: O bucket nao existe e houve erro na criacao dele. Vamos tentar pegar na marra")
             finally:
-                time.sleep(10)
+                time.sleep(15)
             k = Key(osb)
             k.key = '000-DoNotTouchMe-000'
             k.set_contents_from_string('Este bucket e usado pelo projeto IFShare que implementa um sistema de arquivos distribuidos. Tanto o bucket quanto os arquivos que estao aqui dentro sao criticos para o funcionamento do sistema. Sendo assim, caia fora e va fazer outra coisa...')
@@ -160,3 +162,20 @@ def createAndGetObjectStoreBucket(objectStoreDict, objectStoreConnection, debug=
             print("[DEBUG: createAndGetObjectStoreBucket]: Otimo! O bucket %s esta aqui e eh nosso" % (
                 objectStoreDict['BUCKET']))
     return (osb)
+
+def connectDB (configTree, debug = False):
+    if (debug):
+        print("-" * 80)
+        print("[DEBUG: connectDB]: Conectando ao banco de dados...")
+        print("-" * 80)
+    try:
+        db = mysql.connector.connect(user=configTree['USER'],
+                                     password=configTree['PASS'],
+                                     host=configTree['ENDPOINT'],
+                                     database=configTree['DATABASE'])
+    except mysql.connector.errors.InterfaceError:
+        print("%s%s" % ("+-----------+", "-" * 67))
+        print("| connectDB |  Banco de dados inacessivel")
+        print("%s%s" % ("+-----------+", "-" * 67))
+        sys.exit(1)
+    return (db)
